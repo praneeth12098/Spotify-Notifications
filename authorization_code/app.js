@@ -11,7 +11,7 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-
+var parser = require("body-parser");
 var client_id = '9006d77316ea4fff8472a63df4466f51'; // Your client id
 var client_secret = '4dd0ba1d10cc4e1fa54c6d3248dc272f'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
@@ -34,9 +34,10 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 
 var app = express();
-
+app.use(parser.json());
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
+
 
 app.get('/login', function(req, res) {
 
@@ -168,7 +169,16 @@ app.get('/get_phone_number', function(req, res) {
 	});
 
 });
+app.post('/add_phone_number', function(req, res) {
+	var phone_number = req.body.number;
+	var spotify_id = req.body.id;
+	var redis = require("redis");
+	var client = redis.createClient();
 
+	client.set(spotify_id, phone_number);
+
+	res.send("Success");
+});
 
 console.log('Listening on 8888');
 app.listen(8888);
