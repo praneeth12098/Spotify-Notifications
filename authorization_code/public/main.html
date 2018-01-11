@@ -1,18 +1,54 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>List of All Spotify Artists</title>
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-		<style type="text/css">
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-		</style>
-	</head>
+  <style>
+    #phonenumber {
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
 
-	<body>
-		<div class="container">
-			<div class="col-8">
-				
-			</div>
-		</div>
-	</body>
+<div class="container">
+  <h2>Click To Enter Phone Number</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Submit Phone Number</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Submit Phone Number</h4>
+        </div>
+        <div class="modal-body">
+          <!-- <p>Enter phone number without dashes or parentheses.</p> -->
+          <div>
+            <form>
+              <label for="phonenumber">Phone Number: </label>
+              <input type="text" id="phonenumber" name="phonenumber" placeholder="Enter phone number without dashes or parentheses...">
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+</body>
 </html>
