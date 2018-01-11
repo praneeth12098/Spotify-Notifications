@@ -141,5 +141,34 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+app.get('/get_phone_number', function(req, res) {
+	
+	var id = req.query.spotify_id; 
+	var redis = require("redis");
+
+	var client = redis.createClient();
+
+	client.on("connect", function() {
+		console.log("connected");
+	});
+
+	client.get(id, function(err, reply) {
+		console.log(err, reply);
+		
+		if(reply == null) {
+			res.status(404);
+			res.send("User not found.");
+		}
+		else {
+			console.log("Getting to success path");
+			res.send(reply);
+		}
+
+
+	});
+
+});
+
+
 console.log('Listening on 8888');
 app.listen(8888);
