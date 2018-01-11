@@ -109,7 +109,11 @@
                   'Authorization': 'Bearer ' + access_token
                 },
                 success: function(response) {
-                  userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+                  // userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+
+                  // localStorage.spotify_id = response.id;
+                  // localStorage.setItem('spotify_id', response.id);
+                  window.location ="main.html?id=" + response.id;
 
                   $('#login').hide();
                   $('#loggedin').show();

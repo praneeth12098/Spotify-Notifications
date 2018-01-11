@@ -8,13 +8,42 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+  <script type="text/javascript">
+    function getSpotifyID() {
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var id = url.searchParams.get("id");
+      console.log(id);
+      return id;
+    }
+
+    window.onload = getSpotifyID();
+
+    function checkUserExists() {
+      var get_url = "http://c3dad85f.ngrok.io" + "/get_phone_number?spotify_id=" + getSpotifyID();
+      fetch(get_url).then(function(response){
+        var status = response.status;
+        if(!response.ok) {
+          $('#myModal').modal('show');
+        }
+      });
+    }
+
+    window.onload = checkUserExists();
+  </script>
+
   <style>
     #phonenumber {
       width: 400px;
     }
+
+    #myModal {
+      display: none;
+    }
   </style>
 </head>
 <body>
+
 
 <div class="container">
   <h2>Click To Enter Phone Number</h2>
@@ -44,7 +73,6 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Submit</button>
         </div>
       </div>
-      
     </div>
   </div>
   
