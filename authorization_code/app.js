@@ -180,5 +180,23 @@ app.post('/add_phone_number', function(req, res) {
 	res.send("Success");
 });
 
+var search_field = null;
+
+app.use(express.bodyParser());
+app.post('/search_artists', function(req, res)) {
+	console.log(req.body.user.search);
+	search_field = req.body.user.search;
+}
+
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi();
+
+spotifyApi.searchArtists(search_field)
+  .then(function(data) {
+    console.log('Search artists', data.body);
+  }, function(err) {
+    console.error(err);
+  });
+
 console.log('Listening on 8888');
 app.listen(8888);
