@@ -181,12 +181,14 @@ app.post('/add_phone_number', function(req, res) {
 });
 
 app.post('/search_artists', function(req, res) {
-	
+	var search_field = req.body.txtSearch;
+	console.log(req.body);
+	console.log(search_field);
 var SpotifyWebApi = require('spotify-web-api-node');
 var spotifyApi = new SpotifyWebApi({
-	clientId : '9006d77316ea4fff8472a63df4466f51'
-	clientSecret : '4dd0ba1d10cc4e1fa54c6d3248dc272f'
-	redirectUri : 'http://localhost:8888/callback'
+	clientId : '9006d77316ea4fff8472a63df4466f51',
+	clientSecret : '4dd0ba1d10cc4e1fa54c6d3248dc272f',
+	redirectUri : 'http://localhost:8888/callback',
 });
 
 spotifyApi.clientCredentialsGrant()
@@ -196,17 +198,18 @@ spotifyApi.clientCredentialsGrant()
 
     // Save the access token so that it's used in future calls
     spotifyApi.setAccessToken(data.body['access_token']);
+    spotifyApi.searchArtists("lamar")
+    .then(function(data) {
+         console.log('Search artists', data.body);
+     }, function(err) {
+        console.error(err);
+  
   }, function(err) {
     console.log('Something went wrong when retrieving an access token', err.message);
   });
 
 
-spotifyApi.searchArtists(search_field)
-  .then(function(data) {
-    console.log('Search artists', data.body);
-  }, function(err) {
-    console.error(err);
-  });
+});
 
 
 
