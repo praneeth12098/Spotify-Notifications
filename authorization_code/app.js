@@ -179,16 +179,17 @@ app.post('/add_phone_number', function(req, res) {
 
 	res.send("Success");
 });
-
+/*
 app.use(bodyParser.urlencoded({
-  extended: true;
+  extended: true,
 }));
+*/
 
-app.use(bodyParser.json());
+/*app.use(bodyParser.json());*/
 
-app.post('/search_artists', function(req, res) {
-  console.log(req.body.user.search)
-
+app.get('/search_artists', function(req, res) {
+  console.log(req.query.search)
+  console.log(req.body);
   var SpotifyWebApi = require('spotify-web-api-node');
   var spotifyApi = new SpotifyWebApi({
    clientId : '9006d77316ea4fff8472a63df4466f51',
@@ -214,7 +215,7 @@ spotifyApi.clientCredentialsGrant()
 
     // Save the access token so that it's used in future calls
     spotifyApi.setAccessToken(data.body['access_token']);
-    spotifyApi.searchArtists("lamar")
+    spotifyApi.searchArtists(req.query.search)
     .then(function(data) {
          console.log('Search artists', data.body);
      }, function(err) {
