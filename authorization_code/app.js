@@ -180,16 +180,32 @@ app.post('/add_phone_number', function(req, res) {
 	res.send("Success");
 });
 
+app.use(bodyParser.urlencoded({
+  extended: true;
+}));
+
+app.use(bodyParser.json());
+
 app.post('/search_artists', function(req, res) {
-	var search_field = req.body.txtSearch;
-	console.log(req.body);
-	console.log(search_field);
-var SpotifyWebApi = require('spotify-web-api-node');
-var spotifyApi = new SpotifyWebApi({
-	clientId : '9006d77316ea4fff8472a63df4466f51',
-	clientSecret : '4dd0ba1d10cc4e1fa54c6d3248dc272f',
-	redirectUri : 'http://localhost:8888/callback',
+  console.log(req.body.user.search)
+
+  var SpotifyWebApi = require('spotify-web-api-node');
+  var spotifyApi = new SpotifyWebApi({
+   clientId : '9006d77316ea4fff8472a63df4466f51',
+   clientSecret : '4dd0ba1d10cc4e1fa54c6d3248dc272f',
+   redirectUri : 'http://localhost:8888/callback',
 });
+
+// app.post('/search_artists', function(req, res) {
+// 	var search_field = req.body.txtSearch;
+// 	console.log(req.body);
+// 	console.log(search_field);
+// var SpotifyWebApi = require('spotify-web-api-node');
+// var spotifyApi = new SpotifyWebApi({
+// 	clientId : '9006d77316ea4fff8472a63df4466f51',
+// 	clientSecret : '4dd0ba1d10cc4e1fa54c6d3248dc272f',
+// 	redirectUri : 'http://localhost:8888/callback',
+// });
 
 spotifyApi.clientCredentialsGrant()
   .then(function(data) {
