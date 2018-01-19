@@ -183,7 +183,23 @@ app.post('/add_phone_number', function(req, res) {
 app.post('/search_artists', function(req, res) {
 	
 var SpotifyWebApi = require('spotify-web-api-node');
-var spotifyApi = new SpotifyWebApi();
+var spotifyApi = new SpotifyWebApi({
+	clientId : '9006d77316ea4fff8472a63df4466f51'
+	clientSecret : '4dd0ba1d10cc4e1fa54c6d3248dc272f'
+	redirectUri : 'http://localhost:8888/callback'
+});
+
+spotifyApi.clientCredentialsGrant()
+  .then(function(data) {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
+
+    // Save the access token so that it's used in future calls
+    spotifyApi.setAccessToken(data.body['access_token']);
+  }, function(err) {
+    console.log('Something went wrong when retrieving an access token', err.message);
+  });
+
 
 spotifyApi.searchArtists(search_field)
   .then(function(data) {
